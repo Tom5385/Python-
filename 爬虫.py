@@ -79,21 +79,7 @@ def download_video2(video_url,i):
 
 
 
-# def bs4(html):模板
-#     #实例化BeautifulSoup对象
-#     soup = BeautifulSoup(html, "html5lib")
-#     alist=soup.find_all('script',attrs={'crossorigin':'anonymous'})
-#     #获取所有的a标签
-#     li=[]
-#     for a in alist:#这里的a并不是字符串是tag对象，所以不能够直接使用，比如："'/video.' in a","set(a)"
-#         if a.get("href"):#a_tag.get("href") 才是调用 Tag 对象的 .get() 方法，去取这个标签的某个属性，如：print(a_tag.get("href"))   # https://example.com。
-#            herf=a.get("href")
-#         #有些a标签没有'href',更不要说对应的值了，所以用get()更好，没有这个标签就返回NONE
-#         if '/video.' in herf:
-#             li.append(herf)
-#
-#     li=list(set(li))#set（li）是去除重复
-#     return li
+
 
 def bs4(html):
     #实例化BeautifulSoup对象,将html内容解析成soup文档
@@ -120,25 +106,10 @@ def bs4(html):
 
 
 
-# url_li=[]
-# base_url="https://www.xvideos.com"
-# for url in urllist:
-#     final_url=base_url+url
-#     Html=get_html(final_url,user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36')
-#     soup=BeautifulSoup(Html,"lxml")
-#     scriptlist=soup.find_all("script")
-#     for script in scriptlist:
-#         if script.get('crossorigin')=="anonymous" and not script.get('src'):
-#             positions=str(script.string).splitlines()
-#             for position in positions:
-#                 if 'html5player.setVideoHLS' in position:
-#                     match = re.search(r"'(https?://[^']+)'", position)
-#                     if match:
-#                         url = match.group(1)
-#                         url_li.append(url)
 
 
-# print(url_li)
+
+
 
 
 
@@ -170,22 +141,16 @@ def get_highest_quality_m3u8(master_url):
 
 
 
-html=get_html(
-'https://www.xvideos.com/channels/karbo/videos/best/straight/2',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0').split(',')
+html=get_html().split(',')
 
-# import pprint
-# pprint.pprint(html)
-# print('*'*60)
-url_list=[]
-i=70
+
 for html_line in html:
     if '/prof-video-click\\/upload\\/karbo' in html_line:
         url=html_line.split('\/')
-        video_url='https://www.xvideos.com/video.'+url[-2]+'/'+url[-1]
+        video_url=''+url[-2]+'/'+url[-1]
         video_html=get_html(
             video_url,
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0')
+            )
         url_li=bs4(video_html)
         for url in url_li:
             i+=1
@@ -203,4 +168,5 @@ https://upos-hz-mirrorakam.akamaized.net/upgcxcode/98/45/43854598/43854598_da2-1
 
 
 https://upos-hz-mirrorakam.akamaized.net/upgcxcode/82/48/43854882/43854882_da2-1-100022.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEqxTEto8BTrNvN0GvT90W5JZMkX_YN0MvXg8gNEV4NC8xNEV4N03eN0B5tZlqNxTEto8BTrNvNeZVuJ10Kj_g2UB02J0mN0B5tZlqNCNEto8BTrNvNC7MTX502C8f2jmMQJ6mqF2fka1mqx6gqj0eN0B599M=&deadline=1755708590&mid=0&os=akam&nbs=1&oi=1385734734&uipk=5&platform=pc&trid=190f4ce84d304f5ba7a97fcfd0f4a0bu&gen=playurlv3&og=hw&upsig=b389f5f82468bc0e5a141cbb3ceb1faa&uparams=e,deadline,mid,os,nbs,oi,uipk,platform,trid,gen,og&hdnts=exp=1755708590~hmac=af0e355df36b5b4b31fd3442f0b9088a9544f09f2df89a1961a90d10e4113079&bvc=vod&nettype=0&bw=220307&f=u_0_0&agrr=0&buvid=FEE8CAA4-13D7-DFD1-CB93-9DB0381C847C36380infoc&build=0&dl=0&orderid=0,2
+
 
